@@ -1,6 +1,6 @@
 object Form2: TForm2
-  Left = -1209
-  Top = 147
+  Left = 330
+  Top = 123
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = 'Main menu'

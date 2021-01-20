@@ -6,6 +6,7 @@
 #include "Unit1.h"
 #include "Unit2.h"
 #include "mmsystem.h"
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -39,7 +40,7 @@ void __fastcall TForm1::BallInit( void )
 
 bool __fastcall TForm1::takeLeftLife( void )
         {
-            sndPlaySound( "Sounds/loser-sound-effect.wav" , SND_ASYNC );
+            PlaySound( "LOSERSOUNDEFFECT" , HInstance, SND_ASYNC|SND_RESOURCE);
             if( leftLife3 -> Visible == true )
             {
                leftLife3 -> Visible = false;
@@ -55,12 +56,13 @@ bool __fastcall TForm1::takeLeftLife( void )
                leftLife1 -> Visible = false;
                return true;
             }
+            return true;
         }
 //---------------------------------------------------------------------------
 
 bool __fastcall TForm1::takeRightLife( void )
         {
-            sndPlaySound( "Sounds/loser-sound-effect.wav" , SND_ASYNC );
+            PlaySound( "LOSERSOUNDEFFECT" , HInstance, SND_ASYNC|SND_RESOURCE);
             if( rightLife3 -> Visible == true )
             {
                rightLife3 -> Visible = false;
@@ -76,6 +78,7 @@ bool __fastcall TForm1::takeRightLife( void )
                rightLife1 -> Visible = false;
                return true;
             }
+            return true;
         }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::gameWin( AnsiString whoWin)
@@ -91,7 +94,7 @@ void __fastcall TForm1::gameWin( AnsiString whoWin)
            Label3 -> Visible = true;
            StartButton -> Visible = false;
            MediaPlayer1 -> Pause();
-           sndPlaySound( "Sounds/winGame.wav" , SND_ASYNC );
+           PlaySound( "WINGAME" , HInstance, SND_ASYNC|SND_RESOURCE);
         }
 //---------------------------------------------------------------------------
 
@@ -108,14 +111,14 @@ void __fastcall TForm1::OnTimer(TObject *Sender)
       {
           a=-a;
           b=-b;
-          sndPlaySound( "Sounds/BounceSound.wav" , SND_ASYNC );
+          PlaySound( "BOUNCESOUND" , HInstance, SND_ASYNC|SND_RESOURCE);
       }
       // Warunek odbicia od sciany dolnej
       if ( Ball -> Top + Ball -> Height >=  Background -> Height )
       {
           a=-a;
           b = (-2)* a * Ball -> Left + b;
-          sndPlaySound( "Sounds/BounceSound.wav" , SND_ASYNC );
+          PlaySound( "BOUNCESOUND" , HInstance, SND_ASYNC|SND_RESOURCE);
 
       }
 
@@ -140,7 +143,7 @@ void __fastcall TForm1::OnTimer(TObject *Sender)
                 b = Ball -> Top - Ball -> Left * a ;
                 if( ballDirect == true ) ballDirect = false;
                 else ballDirect = true;
-                sndPlaySound( "Sounds/BatHit.wav" , SND_ASYNC );
+                PlaySound( "BATHIT" , HInstance, SND_ASYNC|SND_RESOURCE);
                  speed++;
           }
           else
@@ -171,7 +174,7 @@ void __fastcall TForm1::OnTimer(TObject *Sender)
                 b = Ball -> Top - Ball -> Left * a ;
                 if( ballDirect == true ) ballDirect = false;
                 else ballDirect = true;
-                sndPlaySound( "Sounds/BatHit.wav" , SND_ASYNC );
+                PlaySound( "BATHIT" , HInstance, SND_ASYNC|SND_RESOURCE);
                 speed++;
             }
            else
@@ -187,8 +190,10 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
      BallStartPositionX = Ball -> Left;;
      BallStartPositionY = Ball -> Top;
      BallInit();
-     MediaPlayer1 -> FileName = "Sounds/backgroundMusic.wav";
-     MediaPlayer1 -> Open();
+     //if( Form1 -> Visible == true)
+     PlaySound( "BACKGROUNDMUSIC" , HInstance, SND_ASYNC|SND_RESOURCE);
+     //MediaPlayer1 -> FileName = "BACKGROUNDMUSIC";
+     //MediaPlayer1 -> Open();
      Form2 -> Visible = false;
 }
 //---------------------------------------------------------------------------
@@ -196,7 +201,7 @@ void __fastcall TForm1::StartButtonClick(TObject *Sender)
 {
         Form1 -> SetFocus();
         BallTimer -> Enabled = true;
-        MediaPlayer1 -> Play();
+        //MediaPlayer1 -> Play();
         StartButton -> Visible = false;
 
 }
@@ -251,12 +256,9 @@ void __fastcall TForm1::FormKeyUp(TObject *Sender, WORD &Key,
 void __fastcall TForm1::FormClose(TObject *Sender, TCloseAction &Action)
 {
         MediaPlayer1 -> Close();
+        Application -> Terminate();
 }
 //---------------------------------------------------------------------------
-
-
-
-
 
 void __fastcall TForm1::Label2Click(TObject *Sender)
 {
