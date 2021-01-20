@@ -1,0 +1,11 @@
+// RESNAME RESTYPE FILENAME
+// ---------------------------------------
+   BACKGROUNDMUSIC Wave "Sounds/backgroundMusic.wav"
+   BATHIT Wave "Sounds/BatHit.wav"
+   BOUNCESOUND Wave "Sounds/BounceSound.wav"
+   BOUNCESOUND1 Wave "Sounds/BounceSound1.wav"
+   LOSER-SOUND-EFFECT Wave "Sounds/loser-sound-effect.wav"
+   MAINMENUMUSIC Wave "Sounds/mainMenuMusic.wav"
+   WINGAME Wave "Sounds/winGame.wav"
+
+
